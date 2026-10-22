@@ -7,6 +7,7 @@ title: Business 0d3158d5-cdb4-4908-b0bf-9aab2692362b – Café
 purpose: A landing page for a daylight café offering a contact form.
 sections:
 - `#hero` — Hero introduction: Café
+- `#events` "Upcoming Events" — Calendar and list views of café events: Live Music at Coffee to Grow
 - `#contact` "Say hello" — Contact form
 also: The business description appears in the meta description tag, the Open Graph description tag, and the JSON-LD structured data block.
 

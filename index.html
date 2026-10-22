@@ -81,7 +81,14 @@
           class="h-9 w-auto object-contain"
         >
       </a>
-      <nav class="flex items-center" aria-label="Main navigation">
+      <nav class="flex items-center gap-2" aria-label="Main navigation">
+        <a
+          href="#events"
+          data-nav="events"
+          class="text-sm font-medium tracking-wide text-[#273728] hover:text-[#041F2C] py-2 px-3 border border-transparent hover:border-[#D9DDD0] rounded-sm transition-colors focus:outline-none focus:ring-2 focus:ring-[#041F2C]"
+        >
+          Events
+        </a>
         <a
           href="#contact"
           data-nav="contact"
@@ -144,6 +151,197 @@
       </div>
     </section>
     <!-- /kora:section -->
+
+    <!-- kora:section id="events" -->
+    <section id="events" class="bg-[#FCFAF4] border-t border-[#D9DDD0] py-16 md:py-24">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <div>
+            <span class="text-xs uppercase tracking-[0.12em] text-[#4E5D50] font-medium mb-3 block">
+              Gather &amp; Enjoy
+            </span>
+            <h2 class="text-3xl md:text-4xl text-[#273728] font-medium leading-[1.15]">
+              Upcoming Events
+            </h2>
+          </div>
+
+          <!-- View Switcher -->
+          <div class="inline-flex items-center p-1 bg-[#EEF0E6] rounded border border-[#D9DDD0]" role="tablist" aria-label="Events view">
+            <button
+              type="button"
+              id="view-tab-calendar"
+              role="tab"
+              aria-selected="true"
+              aria-controls="view-calendar-panel"
+              class="px-5 py-2 text-sm font-medium rounded transition-colors bg-[#273728] text-[#F8F3E7] shadow-sm focus:outline-none focus:ring-2 focus:ring-[#041F2C]"
+            >
+              Calendar
+            </button>
+            <button
+              type="button"
+              id="view-tab-list"
+              role="tab"
+              aria-selected="false"
+              aria-controls="view-list-panel"
+              class="px-5 py-2 text-sm font-medium rounded transition-colors text-[#273728] hover:text-[#18231A] focus:outline-none focus:ring-2 focus:ring-[#041F2C]"
+            >
+              List
+            </button>
+          </div>
+        </div>
+
+        <!-- Calendar View Panel (Default) -->
+        <div id="view-calendar-panel" role="tabpanel" aria-labelledby="view-tab-calendar">
+          <div class="bg-[#FCFAF4] border border-[#D9DDD0] rounded p-4 md:p-6 shadow-sm">
+            <!-- Calendar Navigation Header -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#D9DDD0]">
+              <h3 id="cal-month-year" class="text-xl md:text-2xl font-medium text-[#273728]"></h3>
+              <div class="flex items-center gap-2">
+                <button
+                  type="button"
+                  id="cal-today-btn"
+                  class="px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider bg-[#EEF0E6] text-[#273728] hover:bg-[#D9DDD0] rounded border border-[#D9DDD0] transition-colors focus:outline-none focus:ring-2 focus:ring-[#041F2C]"
+                >
+                  Today
+                </button>
+                <div class="inline-flex rounded border border-[#D9DDD0] bg-[#EEF0E6]">
+                  <button
+                    type="button"
+                    id="cal-prev-btn"
+                    aria-label="Previous month"
+                    class="p-2 text-[#273728] hover:bg-[#D9DDD0] rounded-l transition-colors focus:outline-none focus:ring-2 focus:ring-[#041F2C]"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    id="cal-next-btn"
+                    aria-label="Next month"
+                    class="p-2 text-[#273728] hover:bg-[#D9DDD0] rounded-r border-l border-[#D9DDD0] transition-colors focus:outline-none focus:ring-2 focus:ring-[#041F2C]"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Calendar Days Header -->
+            <div class="grid grid-cols-7 gap-px mt-4 text-center border-b border-[#D9DDD0] pb-2 font-medium text-xs tracking-wider uppercase text-[#4E5D50]">
+              <div>Sun</div>
+              <div>Mon</div>
+              <div>Tue</div>
+              <div>Wed</div>
+              <div>Thu</div>
+              <div>Fri</div>
+              <div>Sat</div>
+            </div>
+
+            <!-- Calendar Days Grid -->
+            <div id="calendar-grid" class="grid grid-cols-7 gap-px bg-[#D9DDD0] border border-[#D9DDD0] mt-2 rounded overflow-hidden">
+              <!-- Dynamically populated by JS -->
+            </div>
+
+            <!-- Unscheduled / Announced Events Callout in Calendar -->
+            <div id="calendar-tba-container" class="mt-8 pt-6 border-t border-[#D9DDD0]">
+              <h4 class="text-sm uppercase tracking-wider font-medium text-[#4E5D50] mb-3">
+                Announced &amp; Upcoming Events (Date TBA)
+              </h4>
+              <div id="calendar-tba-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Dynamically populated by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- List View Panel -->
+        <div id="view-list-panel" role="tabpanel" aria-labelledby="view-tab-list" class="hidden">
+          <div id="events-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Dynamically populated by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /kora:section -->
+
+    <!-- Event Detail Modal -->
+    <div
+      id="event-detail-modal"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-200"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-event-title"
+    >
+      <div
+        id="modal-card"
+        class="bg-[#FCFAF4] text-[#18231A] rounded max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-[#D9DDD0] shadow-2xl transform scale-95 transition-transform duration-200"
+      >
+        <!-- Modal Image (if present) -->
+        <div id="modal-image-wrap" class="hidden w-full bg-[#EEF0E6] flex items-center justify-center border-b border-[#D9DDD0] p-4">
+          <img
+            id="modal-image"
+            src=""
+            alt="Event image"
+            class="w-full h-auto max-h-[70vh] object-contain rounded"
+          >
+        </div>
+
+        <div class="p-6 md:p-8">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div>
+              <span id="modal-category" class="inline-block text-xs uppercase tracking-wider font-semibold text-[#4E5D50] bg-[#EEF0E6] px-2.5 py-1 rounded mb-2"></span>
+              <h3 id="modal-event-title" class="text-2xl md:text-3xl font-medium text-[#273728] leading-snug"></h3>
+            </div>
+            <button
+              type="button"
+              id="modal-close-btn"
+              aria-label="Close dialog"
+              class="text-[#4E5D50] hover:text-[#18231A] p-2 rounded hover:bg-[#EEF0E6] transition-colors focus:outline-none focus:ring-2 focus:ring-[#041F2C]"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="space-y-3 mb-6 pb-6 border-b border-[#D9DDD0] text-sm text-[#4E5D50]">
+            <div id="modal-datetime-row" class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#273728] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <span id="modal-datetime"></span>
+            </div>
+            <div id="modal-location-row" class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#273728] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <span id="modal-location"></span>
+            </div>
+          </div>
+
+          <div class="space-y-4 text-base leading-relaxed text-[#18231A]">
+            <p id="modal-short-desc" class="font-medium text-[#273728]"></p>
+            <div id="modal-full-desc" class="space-y-3 text-[#4E5D50] whitespace-pre-line"></div>
+          </div>
+
+          <div id="modal-cta-wrap" class="mt-8 pt-6 border-t border-[#D9DDD0] flex justify-end hidden">
+            <a
+              id="modal-ticket-btn"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center px-6 py-3 bg-[#273728] text-[#F8F3E7] text-sm font-medium rounded hover:bg-[#18231A] transition-colors focus:outline-none focus:ring-2 focus:ring-[#041F2C]"
+            >
+              Register / Book
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- kora:section id="contact" -->
     <section id="contact" class="bg-[#273728] text-[#F8F3E7] py-16 md:py-32">
@@ -242,6 +440,9 @@
       <div class="flex items-center gap-6">
         <a href="#hero" data-nav="home" class="text-sm text-[#F8F3E7]/80 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#F8F3E7]">
           Home
+        </a>
+        <a href="#events" data-nav="events" class="text-sm text-[#F8F3E7]/80 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#F8F3E7]">
+          Events
         </a>
         <a href="#contact" data-nav="contact" class="text-sm text-[#F8F3E7]/80 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#F8F3E7]">
           Contact
@@ -358,7 +559,7 @@
         });
       }
 
-      // Smooth scroll for in-page anchors
+// Smooth scroll for in-page anchors
       document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
         anchor.addEventListener('click', function(e) {
           var targetId = this.getAttribute('href').slice(1);
@@ -369,6 +570,295 @@
           }
         });
       });
+
+      // Events Module
+      var SITE_EVENTS = [
+        {
+          id: "38ee5475-7f9f-402c-8c38-7724f3debe3a",
+          title: "Live Music at Coffee to Grow",
+          short_description: "Enjoy live local music while sipping your favorite espresso, cold brew, or homemade pastry at Coffee to Grow in Front Royal. Come relax, listen, and linger.",
+          full_description: "Join us at Coffee to Grow for a live music event in the heart of Front Royal. Settle in with a drink and some good tunes for a relaxed, welcoming time.\n\nGrab one of your favorites from our menu, such as an espresso, pour over, cold brew, hot chocolate, or Italian soda. Pair it with a homemade pastry or a breakfast item, or try a blended drink if you want something cool and sweet.\n\nWhether you are meeting friends, bringing family, or stopping in on your own, this is a laid-back way to enjoy great music and good coffee. Date and time details will be shared soon, so stay tuned and plan to come hungry, thirsty, and ready to enjoy the music.",
+          start_datetime: "",
+          end_datetime: "",
+          timezone: "",
+          location_text: "",
+          category: "live music",
+          slug: "",
+          ticket_url: "",
+          hero_image_url: ""
+        }
+      ];
+
+      var now = new Date();
+      var currentYear = now.getFullYear();
+      var currentMonth = now.getMonth();
+
+      // View switcher
+      var tabCalendar = document.getElementById('view-tab-calendar');
+      var tabList = document.getElementById('view-tab-list');
+      var panelCalendar = document.getElementById('view-calendar-panel');
+      var panelList = document.getElementById('view-list-panel');
+
+      function switchView(view) {
+        if (view === 'calendar') {
+          tabCalendar.setAttribute('aria-selected', 'true');
+          tabList.setAttribute('aria-selected', 'false');
+          tabCalendar.className = 'px-5 py-2 text-sm font-medium rounded transition-colors bg-[#273728] text-[#F8F3E7] shadow-sm focus:outline-none focus:ring-2 focus:ring-[#041F2C]';
+          tabList.className = 'px-5 py-2 text-sm font-medium rounded transition-colors text-[#273728] hover:text-[#18231A] focus:outline-none focus:ring-2 focus:ring-[#041F2C]';
+          panelCalendar.classList.remove('hidden');
+          panelList.classList.add('hidden');
+        } else {
+          tabCalendar.setAttribute('aria-selected', 'false');
+          tabList.setAttribute('aria-selected', 'true');
+          tabList.className = 'px-5 py-2 text-sm font-medium rounded transition-colors bg-[#273728] text-[#F8F3E7] shadow-sm focus:outline-none focus:ring-2 focus:ring-[#041F2C]';
+          tabCalendar.className = 'px-5 py-2 text-sm font-medium rounded transition-colors text-[#273728] hover:text-[#18231A] focus:outline-none focus:ring-2 focus:ring-[#041F2C]';
+          panelCalendar.classList.add('hidden');
+          panelList.classList.remove('hidden');
+        }
+      }
+
+      if (tabCalendar && tabList) {
+        tabCalendar.addEventListener('click', function() { switchView('calendar'); });
+        tabList.addEventListener('click', function() { switchView('list'); });
+      }
+
+      // Modal management
+      var modal = document.getElementById('event-detail-modal');
+      var modalCard = document.getElementById('modal-card');
+      var modalCloseBtn = document.getElementById('modal-close-btn');
+
+      function openEventModal(eventItem) {
+        if (!modal) return;
+        document.getElementById('modal-event-title').textContent = eventItem.title || 'Event Details';
+        document.getElementById('modal-category').textContent = eventItem.category ? eventItem.category.toUpperCase() : 'EVENT';
+
+        var dtText = eventItem.start_datetime ? new Date(eventItem.start_datetime).toLocaleString([], { dateStyle: 'full', timeStyle: 'short' }) : 'Date & time to be announced';
+        document.getElementById('modal-datetime').textContent = dtText;
+
+        var locRow = document.getElementById('modal-location-row');
+        if (eventItem.location_text) {
+          document.getElementById('modal-location').textContent = eventItem.location_text;
+          locRow.classList.remove('hidden');
+        } else {
+          locRow.classList.add('hidden');
+        }
+
+        document.getElementById('modal-short-desc').textContent = eventItem.short_description || '';
+        document.getElementById('modal-full-desc').textContent = eventItem.full_description || '';
+
+        var imageWrap = document.getElementById('modal-image-wrap');
+        var modalImg = document.getElementById('modal-image');
+        if (eventItem.hero_image_url && eventItem.hero_image_url.trim()) {
+          modalImg.src = eventItem.hero_image_url;
+          modalImg.alt = eventItem.title;
+          imageWrap.classList.remove('hidden');
+        } else {
+          imageWrap.classList.add('hidden');
+          modalImg.src = '';
+        }
+
+        var ctaWrap = document.getElementById('modal-cta-wrap');
+        var ticketBtn = document.getElementById('modal-ticket-btn');
+        if (eventItem.ticket_url && eventItem.ticket_url.trim()) {
+          ticketBtn.href = eventItem.ticket_url;
+          ctaWrap.classList.remove('hidden');
+        } else {
+          ctaWrap.classList.add('hidden');
+        }
+
+        modal.classList.remove('pointer-events-none', 'opacity-0');
+        modal.classList.add('opacity-100');
+        modalCard.classList.remove('scale-95');
+        modalCard.classList.add('scale-100');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeEventModal() {
+        if (!modal) return;
+        modal.classList.add('pointer-events-none', 'opacity-0');
+        modal.classList.remove('opacity-100');
+        modalCard.classList.add('scale-95');
+        modalCard.classList.remove('scale-100');
+        document.body.style.overflow = '';
+      }
+
+      if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeEventModal);
+      if (modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) closeEventModal();
+        });
+      }
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal && !modal.classList.contains('pointer-events-none')) {
+          closeEventModal();
+        }
+      });
+
+      // Calendar generation
+      var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+      function renderCalendar(year, month) {
+        var calMonthYear = document.getElementById('cal-month-year');
+        var calGrid = document.getElementById('calendar-grid');
+        if (!calMonthYear || !calGrid) return;
+
+        calMonthYear.textContent = monthNames[month] + ' ' + year;
+        calGrid.innerHTML = '';
+
+        var firstDayIndex = new Date(year, month, 1).getDay();
+        var daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        // Empty cells preceding day 1
+        for (var i = 0; i < firstDayIndex; i++) {
+          var emptyCell = document.createElement('div');
+          emptyCell.className = 'min-h-[90px] md:min-h-[110px] bg-[#EEF0E6]/50 p-2 text-xs text-[#4E5D50]/40';
+          calGrid.appendChild(emptyCell);
+        }
+
+        // Days of month
+        for (var day = 1; day <= daysInMonth; day++) {
+          var dayCell = document.createElement('div');
+          dayCell.className = 'min-h-[90px] md:min-h-[110px] bg-[#FCFAF4] p-2 flex flex-col justify-between transition-colors hover:bg-[#EEF0E6]';
+
+          var dayHeader = document.createElement('span');
+          dayHeader.className = 'text-xs font-semibold text-[#273728]';
+          dayHeader.textContent = day;
+          dayCell.appendChild(dayHeader);
+
+          // Find events for this date
+          var dateString = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+          var dayEvents = SITE_EVENTS.filter(function(ev) {
+            if (!ev.start_datetime) return false;
+            return ev.start_datetime.indexOf(dateString) === 0;
+          });
+
+          var eventsWrap = document.createElement('div');
+          eventsWrap.className = 'flex flex-col gap-1 mt-1';
+          dayEvents.forEach(function(ev) {
+            var chip = document.createElement('button');
+            chip.type = 'button';
+            chip.className = 'w-full text-left text-[11px] leading-tight px-1.5 py-1 bg-[#273728] text-[#F8F3E7] rounded truncate hover:bg-[#18231A] transition-colors focus:outline-none focus:ring-1 focus:ring-[#041F2C]';
+            chip.textContent = ev.title;
+            chip.title = ev.title;
+            chip.addEventListener('click', function(e) {
+              e.stopPropagation();
+              openEventModal(ev);
+            });
+            eventsWrap.appendChild(chip);
+          });
+
+          dayCell.appendChild(eventsWrap);
+          calGrid.appendChild(dayCell);
+        }
+
+        // Render TBA events section inside Calendar view
+        var tbaList = document.getElementById('calendar-tba-list');
+        var tbaContainer = document.getElementById('calendar-tba-container');
+        if (tbaList && tbaContainer) {
+          var tbaEvents = SITE_EVENTS.filter(function(ev) { return !ev.start_datetime; });
+          if (tbaEvents.length === 0) {
+            tbaContainer.classList.add('hidden');
+          } else {
+            tbaContainer.classList.remove('hidden');
+            tbaList.innerHTML = '';
+            tbaEvents.forEach(function(ev) {
+              var card = document.createElement('div');
+              card.className = 'p-4 bg-[#EEF0E6] rounded border border-[#D9DDD0] flex flex-col justify-between items-start gap-3';
+              card.innerHTML =
+                '<div>' +
+                  '<span class="inline-block text-[10px] uppercase font-bold tracking-wider text-[#4E5D50] bg-[#FCFAF4] border border-[#D9DDD0] px-2 py-0.5 rounded mb-2">' + (ev.category ? ev.category.toUpperCase() : 'EVENT') + '</span>' +
+                  '<h5 class="text-base font-medium text-[#273728] mb-1">' + ev.title + '</h5>' +
+                  '<p class="text-xs text-[#4E5D50] line-clamp-2">' + ev.short_description + '</p>' +
+                '</div>' +
+                '<button type="button" class="text-xs font-semibold uppercase tracking-wider text-[#273728] hover:text-[#18231A] underline underline-offset-4 focus:outline-none">View Details</button>';
+              card.querySelector('button').addEventListener('click', function() {
+                openEventModal(ev);
+              });
+              tbaList.appendChild(card);
+            });
+          }
+        }
+      }
+
+      // Calendar controls
+      var prevBtn = document.getElementById('cal-prev-btn');
+      var nextBtn = document.getElementById('cal-next-btn');
+      var todayBtn = document.getElementById('cal-today-btn');
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+          currentMonth--;
+          if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+          }
+          renderCalendar(currentYear, currentMonth);
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+          currentMonth++;
+          if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+          }
+          renderCalendar(currentYear, currentMonth);
+        });
+      }
+
+      if (todayBtn) {
+        todayBtn.addEventListener('click', function() {
+          var t = new Date();
+          currentYear = t.getFullYear();
+          currentMonth = t.getMonth();
+          renderCalendar(currentYear, currentMonth);
+        });
+      }
+
+      // Render List View
+      function renderListView() {
+        var listContainer = document.getElementById('events-list-container');
+        if (!listContainer) return;
+        listContainer.innerHTML = '';
+
+        SITE_EVENTS.forEach(function(ev) {
+          var dtText = ev.start_datetime ? new Date(ev.start_datetime).toLocaleString([], { dateStyle: 'full', timeStyle: 'short' }) : 'Date & time to be announced';
+          var card = document.createElement('div');
+          card.className = 'bg-[#FCFAF4] border border-[#D9DDD0] rounded p-6 shadow-sm flex flex-col justify-between hover:border-[#273728] transition-colors';
+
+          var imageHtml = '';
+          if (ev.hero_image_url && ev.hero_image_url.trim()) {
+            imageHtml = '<div class="w-full h-48 bg-[#EEF0E6] rounded mb-4 overflow-hidden flex items-center justify-center p-2"><img src="' + ev.hero_image_url + '" alt="' + ev.title + '" class="w-full h-full object-contain"></div>';
+          }
+
+          card.innerHTML =
+            imageHtml +
+            '<div>' +
+              '<div class="flex items-center justify-between gap-2 mb-3">' +
+                '<span class="text-xs uppercase tracking-wider font-semibold text-[#4E5D50] bg-[#EEF0E6] px-2.5 py-1 rounded">' + (ev.category ? ev.category.toUpperCase() : 'EVENT') + '</span>' +
+                '<span class="text-xs text-[#4E5D50]">' + dtText + '</span>' +
+              '</div>' +
+              '<h3 class="text-xl font-medium text-[#273728] mb-2">' + ev.title + '</h3>' +
+              '<p class="text-sm text-[#4E5D50] leading-relaxed mb-6">' + ev.short_description + '</p>' +
+            '</div>' +
+            '<div>' +
+              '<button type="button" class="w-full sm:w-auto px-6 py-2.5 bg-[#273728] text-[#F8F3E7] text-sm font-medium rounded hover:bg-[#18231A] transition-colors focus:outline-none focus:ring-2 focus:ring-[#041F2C]">' +
+                'View details' +
+              '</button>' +
+            '</div>';
+
+          card.querySelector('button').addEventListener('click', function() {
+            openEventModal(ev);
+          });
+
+          listContainer.appendChild(card);
+        });
+      }
+
+      // Initialize Events
+      renderCalendar(currentYear, currentMonth);
+      renderListView();
     })();
   </script>
 </body>
