@@ -1,0 +1,69 @@
+@import "tailwindcss";
+@source "../**/*.html";
+@source "../assets/**/*.js";
+
+@theme {
+  --color-primary: #273728;
+  --color-secondary: #041F2C;
+  --color-accent: #F8F3E7;
+  --color-ground: #FCFAF4;
+  --color-surface: #EEF0E6;
+  --color-ink: #18231A;
+  --color-muted: #4E5D50;
+  --color-border: #D9DDD0;
+
+  --font-heading: "Larsseit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --text-display: clamp(1.75rem, 3.6vw, 3rem);
+  --text-h2: 2.25rem;
+  --text-h3: 1.5rem;
+  --text-body: 1.0625rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-ground);
+    color: var(--color-ink);
+    line-height: 1.65;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    line-height: 1.15;
+    font-weight: 500;
+  }
+}
+
+/* Active navigation state driven by body[data-page] */
+body[data-page="home"] [data-nav="home"] {
+  opacity: 1;
+  font-weight: 600;
+}
+
+/* Motion and reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.fade-in-init {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
